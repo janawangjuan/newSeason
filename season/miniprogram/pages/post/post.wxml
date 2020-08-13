@@ -1,0 +1,14 @@
+<view class="post-main">
+  <image src='{{imagePath}}' mode="widthFix" class="post-bg"></image>
+  <view class="tips">扫描二维码即可为我助力免费领礼品</view>
+  <button class="save-btn" bindtap="savaImage">点击保存内容</button>
+
+  <!--拒绝授权 弹框 -->
+  <view class="post-modal-bg"  wx:if='{{modalShow}}'>
+    <view class='show-photo-box'>
+        <text class="closePoint" catchtap="closePower">+</text>
+        <view class='title-hand'>缺少授权，请点击授权</view>
+        <button type='primary' class='openSetting' open-type="openSetting" catchtap="closePower" bindopensetting='handleSetting'>去授权</button>
+    </view>
+  </view>
+</view>

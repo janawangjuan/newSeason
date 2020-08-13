@@ -1,0 +1,381 @@
+<view>
+	<!-- banner 背景图 -->
+	<view class="banner-container">
+	
+	<image src="../../images/banner-bg.jpg" mode="widthFix" class="banner-bg"></image>
+	<view class="banner-up">
+		<!-- 顶部提示 -->
+		<view class="top-text">
+			<swiper wx:if="{{tipArr.length>0}}" class="swiper-top-txt" next-margin="20px" autoplay="true" interval="2500" easing-function="linear" duration="4500" circular="true">
+					<block wx:for="{{tipArr}}" wx:key="index">
+						<swiper-item>
+							<view class="swiper-item"> {{item.nick_name}}人品大爆发{{item.prize_name}}</view>
+						</swiper-item>
+					</block>
+				</swiper>	
+		</view>	
+
+		<!-- 我的奖品及规则按钮 -->
+		<view class="btn-banner">
+			<image src="../../images/btn-main-prize.png" data-types='main' bindtap="showRuler" mode="widthFix" class="main-prize"></image>
+			<image src="../../images/btn-main-ruler.png" data-types='ruler' bindtap="showRuler" mode="widthFix" class="main-ruler"></image>
+		</view>
+		<!-- 活动时间 -->
+		<view class="active-time">活动时间：8月17日-9月15日</view>
+
+		<!-- 抽奖机 -->
+		<view class="prize-machine">
+			<!-- 跑马灯 -->
+			<view class="lamp-box">
+				<view class="lamp">
+          <view class="top">
+            <view class="content" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
+              <vie class="{{flashing?'white':'yellow'}}"></vie>
+              <view class="{{flashing?'yellow':'white'}}"></view>
+            </view>
+          </view>
+					<view class="right">
+							<view class="content" wx:for="{{[1,2,3]}}" data-index="{{index}}" wx:key="index" style="transform: rotateZ({{index == 1?'':'-'}}15deg);">
+									<view class="{{flashing?'yellow':'white'}}"></view>
+									<vie class="{{flashing?'white':'yellow'}}"></vie>
+							</view>
+					</view>
+					<view class="bottom">
+						<view class="content" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="index">
+								<view class="{{flashing?'yellow':'white'}}"></view>
+								<vie class="{{flashing?'white':'yellow'}}"></vie>
+						</view>
+					</view>
+          <view class="left">
+            <view class="content" wx:for="{{[1,2,3]}}" data-index="{{index}}" wx:key="index" style="transform: rotateZ({{index==0?'-20deg':index == 1?'-15deg':''}});">
+              <view class="{{flashing?'yellow':'white'}}"></view>
+                        <vie class="{{flashing?'white':'yellow'}}"></vie>
+                    </view>
+                </view>
+            </view>
+			</view>
+			<image src="../../images/prize-machine.png" mode="widthFix" class="machine-img"></image>
+			<image src="../../images/border-fff.png" mode="widthFix" class="border-fff"></image>
+			<!-- 抽奖次数 -->
+			<view class="luck-time">还有{{prizeTime}}次抽奖机会</view>
+			<!-- 奖品内容 -->
+			<view class="prizeContent">
+				<!-- 第一列 -->
+				<view class="prizeList">
+						<view class="prizeBox Box1" style=" transform: rotateX({{animation0}}deg)">
+								<view class="red-envelope" wx:for="{{redEnvelopeList0}}" wx:key="index" wx:for-item="itemName" style="transform:rotateX({{(360/redEnvelopeList0.length)*index}}deg)  translateZ({{250}}rpx);">
+										<image src="../../images/prize-img-{{itemName.img}}.png" mode="widthFix" />
+								</view>
+						</view>
+				</view>
+				<!-- 第二列 -->
+				<view class="prizeList">
+					<view class="prizeBox Box2" style="transform: rotateX({{animation1}}deg)">
+								<view class="red-envelope" wx:for="{{redEnvelopeList0}}" wx:key="index" wx:for-item="itemName" style="transform:rotateX({{(360/redEnvelopeList0.length)*index}}deg)  translateZ({{250}}rpx);">
+										<image src="../../images/prize-img-{{itemName.img}}.png" mode="widthFix" />
+								</view>
+						</view>
+				</view> 
+				<!-- 第三列 -->
+				<view class="prizeList">
+						<view class="prizeBox Box3" style="transform: rotateX({{animation2}}deg)">
+								<view class="red-envelope" wx:for="{{redEnvelopeList0}}" wx:key="index" wx:for-item="itemName" style="transform:rotateX({{(360/redEnvelopeList0.length)*index}}deg)  translateZ({{250}}rpx);">
+										<image src="../../images/prize-img-{{itemName.img}}.png" mode="widthFix" />
+								</view>
+						</view>
+				</view> 
+			</view>
+			<!-- 抽奖按钮 -->
+			<view class="btn-box">
+				<image src="../../images/btn-{{startImg}}.png" wx:if="{{play}}" bindtap="start" mode="widthFix" class="btn-start"></image>
+				<image src="../../images/btn-{{startImg}}.png" wx:else  mode="widthFix" bindtap="showTips" class="btn-start"></image>
+			</view>
+
+		</view>
+	</view>
+	</view>
+	
+
+
+	<!-- 中奖名单 -->
+	<view class="prize-list">
+	
+			<!-- 提示语 -->
+			<view class="tip-suc-add">成功邀请3位好友即可抽奖</view>
+		<view class="list-rang-box">
+			<view class="title-name"><text class="title-left"></text>中 奖 名 单<text class="title-right"></text></view>
+			<view class="noPrize-name" wx:if="{{tipArr.length==0}}">
+				暂无中奖的幸运儿
+			</view>
+			<swiper wx:else class="rang-box"
+        autoplay="true" vertical="true" circular="true" interval="1000" display-multiple-items="{{tipArr.length<7?tipArr.length:6}}" duration="1000">
+        <block wx:for="{{tipArr}}" wx:key="index">
+          <swiper-item>
+            <view class="swiper-item items">
+							<text class="name">用户</text>
+							<text class="phone">{{item.nick_name}}</text>
+							<text class="prize">{{item.prize_name}}</text>
+						</view>
+          </swiper-item>
+        </block>
+      </swiper>
+		</view>
+		<view class="prize-tips">*分享到3个以上群或者好友，成功邀请后即可开启抽奖</view>
+
+		<view class="prize-btn">
+			<button class="btn-share-agin" bindtap="showModal">分享再得一次抽奖机会</button>
+			<!-- <button class="btn-share-agin" open-type="share">分享再得一次抽奖机会</button> -->
+			 
+			<button class="btn-more-active" bindtap="toWeb">更多活动</button>
+		</view>
+
+	</view>
+
+	<!-- 邀请好友参与弹出分享 -->
+	<view class="modals modals-bottom-dialog" hidden="{{hideModal}}" bindtap="hideModalTap">
+		<view class="modals-cancel" bindtap="hideModalTap"></view>
+		<view class="bottom-dialog-body bottom-pos" animation="{{animationData}}">
+			<button class='col-item' open-type='share'>分享给好友</button>
+			<view class='col-item' catchtap='madePost'>生成海报分享到朋友圈</view>
+			<view bindtap="hideModalTap" class='cencle-btn'>取消</view>
+		</view>
+	</view>
+	
+	<!-- 弹窗 -->
+	<view class="modal-box" wx:if='{{modalFlag}}'>
+		<view class="inner-box {{reciveState=='main'?'prize':''}}">
+
+			<!-- 领取状态页 -->
+			<view class="recive-success-box" wx:if="{{reciveState=='state'}}">
+			
+				<view class="top">
+						<view class="close-image-text" bindtap="closeModal"><image src="../../images/icon-close-1.png" mode="widthFix" class="icon-close-state"></image></view>
+					<image src="../../images/icon-dragon-1.png" mode="widthFix" wx:if="{{formState=='success'||formState=='form'}}" class="title-img"></image>
+					<image src="../../images/icon-dragon-2.png" mode="widthFix" wx:if="{{formState=='fail'}}" class="title-img"></image>
+				</view>
+				<view class="center">
+					<image src="../../images/modal-top-bg.png" mode="widthFix" class="modal-top-bg"></image>
+					<view class="state-box">
+						<view class="receive {{formState=='form'?'nobottom':''}}">
+							<view class="success" wx:if="{{formState=='success'}}">
+								<view class="rec-state">
+									<image src='../../images/title-success.png' mode="widthFix" class="title-success"></image>
+								</view>
+								<view class="res-img">
+									<image src='{{nowPrize.imgUrl}}' mode="widthFix" class="prize-img"></image>
+								</view>
+								<view class="res-txt">
+									<text >{{nowPrize.txt}}</text>
+								</view>
+							</view>
+							<view class="rec-state" wx:if="{{formState=='fail'}}">
+								<view class="rec-state">
+									<image src='../../images/title-fail.png' mode="widthFix" class="title-success"></image>
+								</view>
+								<view class="res-txt">
+									<text >请检查信息并重新领取</text>
+								</view>
+							</view>
+              <view class="rec-state fromS" wx:if="{{formState=='form'}}">
+                <view class="rec-state">
+									<image src='../../images/title-from.png' mode="widthFix" class="title-success"></image>
+								</view>
+                <form bindsubmit="receivePrize" report-submit="true" class="rec-form">
+                  <input class="weui-input"  name="username" placeholder="姓名" />
+                  <input class="weui-input" maxlength="11" name="phone" placeholder="手机号" />
+                  <input class="weui-input"  name="adress" placeholder="邮寄地址" />
+                  <view class="weui-text">请填写准确信息，方便兑奖发放</view>
+                  <view class="res-btn">
+                    <button form-type="submit" class="btn-sub"><image src="../../images/btn-form.png" mode="widthFix" class="btn-continue"></image></button>
+                  </view>
+                </form>
+              </view>
+							<!-- 领取成功-->
+								<view class="res-btn" wx:if="{{formState=='success'}}">
+								<!-- 是否为食堂补贴 -->
+								<view wx:if="{{nowPrize.img==5}}">
+							
+									<image src="../../images/btn-mei.png" mode="widthFix" data-tab='mei' class="btn-continue mei" bindtap="copyMain"></image>
+									<image src="../../images/btn-ele.png" mode="widthFix" data-tab='ele' class="btn-continue mei" bindtap="copyMain"></image>
+								</view>
+								<view wx:else>
+									<image src="../../images/btn-continue.png" mode="widthFix" class="btn-continue" bindtap="closeModal"></image>
+								</view>
+							</view>
+							<!-- 领取失败 -->
+							<view class="res-btn" wx:if="{{formState=='fail'}}">
+								<image src="../../images/btn-continue.png" mode="widthFix" class="btn-continue" bindtap="closeModal"></image>
+							</view>
+
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<!-- 中奖提示 -->
+			<view class="get-prize-box" wx:if="{{reciveState=='prizeTips'}}">
+				<view class="top">
+					<view class="close-image-text" bindtap="closeModal"><image src="../../images/icon-close-1.png" mode="widthFix" class="icon-close-state"></image></view>
+					<image src="../../images/icon-dragon-1.png" mode="widthFix" class="title-img"></image>
+				</view>
+
+				<view class="center">
+					<image src="../../images/modal-top-bg.png" mode="widthFix" class="modal-top-bg"></image>
+					<view class="state-box">
+						<view class="receive">
+							<view class="success">
+								<view class="rec-state">
+									<image src='../../images/title-success-get.png' mode="widthFix" class="title-success-get"></image>
+								</view>
+								<view class="res-img">
+									<image src='{{nowPrize.imgUrl}}' mode="widthFix" class="prize-img"></image>
+								</view>
+								<view class="res-txt">
+									<text >{{nowPrize.name}}</text>
+								</view>
+							</view>
+							<view class="res-btn">
+								<image src="../../images/btn-get-prize.png" bindtap="getPrizeBtn" mode="widthFix" class="btn-continue"></image>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<!-- 规则页 -->
+			<view class="recive-ruler-box" wx:if="{{reciveState=='ruler'}}">
+        <image src="../../images/title-ruler.png" mode="widthFix" class="ruler-title"></image>
+				<image src="../../images/icon-close-ruler.png" mode="widthFix" class="close-ruler" bindtap="closeModal"></image>
+        <view class="text-ruler">
+          <view class="ruler-item" wx:for="{{rulerArr}}" wx:key="index"><text class="point"></text>{{item.txt}}</view>
+					<image src="../../images/btn-confirm.png" mode="widthFix" bindtap="closeModal" class="btn-confirm"></image>
+        </view>
+			</view>
+
+			<!-- 奖品及排行榜 -->
+			<view class="recive-main-prize" wx:if="{{reciveState=='main'}}">
+				<image src="../../images/icon-close-ruler.png" mode="widthFix" class="close-ruler" bindtap="closeModal"></image>
+				<view class="tab-group">
+					<image src='../../images/prize-tab.png' mode="widthFix" class="prize-tab-img"></image>
+					<text class="group-text left {{mainTab==1?'active':''}}" data-idx='1' bindtap="changeTab">我的奖品</text>
+					<text class="group-text right {{mainTab==2?'active':''}}" data-idx='2' bindtap="changeTab">贡献榜</text>
+				</view>
+				
+				<view class="rang-prize">
+					<view class="rang-pri-title">hi，中博用户：{{rankObj.ranking.nick_name}},您当前<text wx:if='{{rankObj.ranking.rank==0}}'>暂无排名</text> <text wx:else>排名第{{rankObj.ranking.rank}}</text>， 每成功邀请3位好友即可解锁一次抽象，排行榜Top3还有机会获得超级幸运礼！100%中奖哦~</view>
+					<view class="get-prize-rang"  wx:if="{{mainTab==1}}">
+						
+						<view class="item-prize" wx:for="{{mainPrize}}" wx:key="index" bindtap="showSucModal" data-state='{{item.state}}' data-items="{{redEnvelopeList0[item.commodity_id-1]}}" >
+							<view class="item-prize-border">
+								<image src="{{redEnvelopeList0[item.commodity_id-1].imgUrl}}" class="prize-img-left" mode="widthFix"></image>
+								<view class="prize-name-middle">
+									<view class="names-border">
+										<view class="names-inner">{{redEnvelopeList0[item.commodity_id-1].abbreviation}}</view>
+									</view>
+									<view class="name-tips">{{redEnvelopeList0[item.commodity_id-1].name}}</view>
+								</view>
+								<view class="prize-btn-state" data-state='{{item.state}}' data-items="{{redEnvelopeList0[item.commodity_id-1]}}" data-lottery='{{item.lottery_id}}' bindtap="showForm">
+									<image  wx:if='{{item.state==0}}' src="../../images/btn-prize-state-bg.png" mode="widthFix" class="prize-btnbg-img"></image>
+									<image wx:else src="../../images/btn-prize-state-gray.png" mode="widthFix" class="prize-btnbg-img"></image>
+									<text class="btn-sta-txt" wx:if='{{item.state==0}}'>待领取</text>
+									<text class="btn-sta-txt" wx:elif='{{item.state==1}}'>已领取</text>
+									<text class="btn-sta-txt unclaimed" wx:else>已领完</text>
+								</view>
+							</view>
+						</view>
+
+						<view wx:if='{{mainPrize.length==0}}' class="noPrize">
+							您还未有获奖记录
+						</view>
+					
+					
+					</view>
+
+					<!-- 贡献榜 -->
+					<view class="rang-listBox" wx:if="{{mainTab==2}}">
+						<view class="norangList" wx:if="{{rankObj.list.length==0}}">还没有小伙伴分享呢！</view>
+						<view class="listBox-item" wx:for="{{rankObj.list}}" wx:key="index">
+							<view class="left">
+								<image src="../../images/rang-left-bg.png" mode="widthFix" class="left-bg"></image>
+								<image wx:if="{{index<6}}" src="../../images/icon-list-{{index+1}}.png"  class="icon-list {{'icon-list'+index}}"></image>
+								<text wx:else class="numList">{{index+1}}</text>
+								<image src="../../images/icon-gold.png" wx:if="{{index==0}}" mode="widthFix" class="icon-gold"></image>
+								<image src="../../images/icon-silver.png" wx:if="{{index==1}}" mode="widthFix" class="icon-gold"></image>
+								<image src="../../images/icon-copper.png" wx:if="{{index==2}}" mode="widthFix" class="icon-gold"></image>
+								<image src="{{item.head_img}}" mode="widthFix" class="icon-head"></image>
+							</view>
+							<view class="center">{{item.nick_name}}</view>
+							<view class="center">贡献数：{{item.help_num}}</view>
+						</view>
+						
+					</view>
+
+					<view class="share-tips">*分享到3个以上群或者好友，成功邀请后即可开启抽奖</view>
+
+					<view class="share-btnAll">
+						<button class="btn-share-agin" open-type="share">分享再得一次抽奖机会</button>
+						<button class="btn-more-active" bindtap="toWeb">更多活动</button>
+					</view>
+
+				</view>
+			</view>
+
+			<!-- 助力页 -->
+			<view class="recive-help-box" wx:if="{{reciveState=='help'}}">
+				<view class="top">
+						<!-- <view class="close-image-text" bindtap="closeModal"><image src="../../images/icon-close-1.png" mode="widthFix" class="icon-close-state"></image></view> -->
+						<image src="../../images/icon-dragon-1.png" mode="widthFix"  class="title-img"></image>
+				</view>
+				<view class="center">
+					<image src="../../images/modal-top-bg.png" mode="widthFix" class="modal-top-bg"></image>
+					<view class="state-box">
+						<!-- 助力他人 -->
+						<view class="receive" wx:if="{{hlepState=='help'}}">
+							<view class="rec-state" >
+								<view class="rec-state">
+									<image src='../../images/help-txt-1.png' mode="widthFix" class="help-img-txt"></image>
+								</view>
+								<view class="res-txt">笔记本电脑，新款Pad、各种开学装备抽奖得。 100%中奖！！！
+								</view>
+							</view>
+
+							<view class="res-btn">
+								<button class="start-main-btn" wx:if='{{btnType=="allBtn"}}'  bindtap="helpOther">
+									<image src="../../images/btn-help.png" mode="widthFix" class="btn-continue"></image>
+									</button>
+									<button class="start-main-btn" wx:elif='{{btnType=="userinfo"}}' open-type="getUserInfo"  bindgetuserinfo="getUserInfo">
+									<image src="../../images/btn-help.png" mode="widthFix" class="btn-continue"></image>
+									</button>
+
+									<button class="start-main-btn" wx:else  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+										<image src="../../images/btn-help.png" mode="widthFix" class="btn-continue"></image>
+									</button>
+							</view>
+
+							
+						</view>
+						<!-- 我也要参与 -->
+						<view class="receive" wx:if="{{hlepState=='join'}}">
+							<view class="rec-state" >
+								<view class="rec-state">
+									<image src='../../images/help-txt-2.png' mode="widthFix" class="help-img-thanks"></image>
+								</view>
+								<view class="res-help-txt">
+									<view>好友获得您的帮助</view> 
+									<view>增加一次抽奖机会</view>
+								</view>
+								<view class="res-txt">笔记本电脑，新款Pad、各种开学装备抽奖得。 100%中奖！！！
+								</view>
+							</view>
+             
+							<view class="res-btn" >
+								<image src="../../images/btn-join.png" bindtap="joinTab" mode="widthFix" class="btn-continue"></image>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+		</view>	
+	</view>
+</view>

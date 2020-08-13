@@ -1,0 +1,81 @@
+<!-- <view >
+		<view class="prize-machine content">
+			<image src="../../images/prize-machine.png" mode="widthFix" class="machine-img"></image>
+			<image src="../../images/border-fff.png" mode="widthFix" class="border-fff"></image>
+      <view class="prize-item">
+      <view class="item">
+        <view class="transit" animation="{{animateionToYn}}" >
+<view class="forImg">
+          <image src="../../images/prize-img-1.png" ></image>
+        </view>
+        <view class="forImg">
+          <image src="../../images/prize-img-5.png" ></image>
+        </view>
+        <view class="forImg">
+          <image src="../../images/prize-img-3.png" ></image>
+        </view>
+        </view>
+        
+      </view>
+        <view class="item">
+          <view class='line'>
+            <image src='{{tab1.url}}' class="line-imgs" animation="{{animationData1}}" bindtransitionend="getOpenAnimation"></image>
+            <image class='default-img'  hidden='{{showDefault}}' src='{{tab1.url}}'></image>
+          </view>
+        </view>
+        <view class="item">
+           <view class='line'>
+        <image src='{{tab2.url}}' animation="{{animationData2}}" bindtransitionend="getOpenAnimation"></image>
+        <image class='default-img' hidden='{{showDefault}}' src='{{tab2.url}}'></image>
+      </view>
+        </view>
+        <view class="item">
+           <view class='line'>
+            <image src='{{tab3.url}}' animation="{{animationData3}}" bindtransitionend="getOpenAnimation"></image>
+            <image class='default-img' hidden='{{showDefault}}' src='{{tab3.url}}'></image>
+          </view>
+        </view>
+      </view>
+      <view class="btn-show" bindtap="getAnmiation"></view>      
+		</view>
+</view> -->
+
+
+<!--pages/luckDraw/luckDraw.wxml-->
+<view class="cont">
+<!-- 底部抽奖 -->
+<view class='luck-draw' wx:if="{{luckDrawID==1}}">
+<image class='draw-img' src='{{bg}}'></image>
+<image class='show-draw' wx:if="{{drawId==1}}" src='../../images/btn-join-now.png' bindtap='getAnmiation'></image>
+<image class='show-draw' wx:else src='../../images/btn-join-now.png'></image>
+<view class="prizeContent">
+  <view class="prizeList">
+    
+  </view>
+  <view class="prizeList">
+
+  </view>
+  <view class="prizeList">
+
+  </view>
+</view>
+    <!-- <view class='content'>
+      <view class='line'> 
+        <image src='{{tab1.url}}' mode="widthFix" animation="{{animationData1}}" bindtransitionend="getOpenAnimation"></image>
+        <image class='default-img' mode="widthFix" hidden='{{showDefault}}' src='{{tab1.url}}'></image>
+      </view>
+      <view class='line'>
+        <image src='{{tab2.url}}' mode="widthFix" animation="{{animationData2}}" bindtransitionend="getOpenAnimation"></image>
+        <image class='default-img' mode="widthFix" hidden='{{showDefault}}' src='{{tab2.url}}'></image>
+      </view>
+      <view class='line'>
+        <image src='{{tab3.url}}' mode="widthFix" animation="{{animationData3}}" bindtransitionend="getOpenAnimation"></image>
+        <image class='default-img' mode="widthFix" hidden='{{showDefault}}' src='{{tab3.url}}'></image>
+      </view>
+    </view> -->
+</view>
+ 
+ 
+</view>
+ 
+ 

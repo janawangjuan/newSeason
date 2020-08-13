@@ -1,0 +1,20 @@
+<view class="transite-main">
+<!-- mode="widthFix"  -->
+  <image src="../../images/transite-bg.jpg" class="transite-bg"></image>
+  <view class="start-main">
+    <button class="start-main-btn" wx:if='{{btnType=="allBtn"}}'  bindtap="nextAll">
+     <image src="../../images/btn-join-now.png" mode="widthFix" class="join-now"></image>
+    </button>
+    <button class="start-main-btn" wx:elif='{{btnType=="userinfo"}}' open-type="getUserInfo"  bindgetuserinfo="getUserInfo">
+     <image src="../../images/btn-join-now.png" mode="widthFix" class="join-now"></image>
+    </button>
+
+    <button class="start-main-btn" wx:else  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      <image src="../../images/btn-join-now.png" mode="widthFix" class="join-now"></image>
+    </button>
+    
+    <view class="join-numbers">已有{{joinAllNumber}}人参与活动</view>
+  </view>
+
+  
+</view>
